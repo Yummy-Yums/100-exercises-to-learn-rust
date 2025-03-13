@@ -4,6 +4,9 @@ struct Ticket {
     status: String,
 }
 
+const VALID_STATUSES: [&str; 3] = ["To-Do", "In Progress", "Done"];
+
+
 impl Ticket {
     // TODO: implement the `new` function.
     //  The following requirements should be met:
@@ -18,11 +21,18 @@ impl Ticket {
     // as well as some `String` methods. Use the documentation of Rust's standard library
     // to find the most appropriate options -> https://doc.rust-lang.org/std/string/struct.String.html
     fn new(title: String, description: String, status: String) -> Self {
-        todo!();
-        Self {
-            title,
-            description,
-            status,
+
+        match (title.as_str(), description.as_str(), status.as_str()) {
+            (title, _, _) if title.is_empty() => panic!("Title cannot be empty"),
+            (_, description, _) if description.is_empty() => panic!("Description cannot be empty"),
+            (title, _, _) if title.bytes().len() > 50 => panic!("Title cannot be longer than 50 bytes"),
+            (_, description, _) if description.bytes().len() > 500 => panic!("Description cannot be longer than 500 bytes"),
+            (_, _, status) if !VALID_STATUSES.contains(&status) => panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed"),
+            _ => Self {
+                title,
+                description,
+                status
+            }
         }
     }
 }
