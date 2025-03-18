@@ -1,4 +1,4 @@
 target/
 exercises/progress.db
 .idea
-.gitignore
+Cargo.lock
