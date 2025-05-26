@@ -2,3 +2,4 @@ target/
 exercises/progress.db
 .idea
 Cargo.lock
+.wr.toml
